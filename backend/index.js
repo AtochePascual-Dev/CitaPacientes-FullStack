@@ -1,8 +1,12 @@
 // * IMPORTACIONES
 import express from 'express';
+import conectarDB from './config/db.js';
 
 // Creamos una instancia de express
 const app = express();
+
+// Conectamos con la BD
+conectarDB()
 
 // Configuramos el puerto del servidor
 const PORT = process.env.PORT || 4000;
