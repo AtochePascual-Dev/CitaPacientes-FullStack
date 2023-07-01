@@ -1,5 +1,6 @@
 // * IMPORTACIONES
 import express from 'express';
+import dotenv from 'dotenv/config';
 import conectarDB from './config/db.js';
 
 // Creamos una instancia de express

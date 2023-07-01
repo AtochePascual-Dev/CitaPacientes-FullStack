@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 //* Conecta con la BD
 const conectarDB = async () => {
   try {
-    const db = await mongoose.connect(`mongodb+srv://root:root@cluster0.gh1yphz.mongodb.net/?retryWrites=true&w=majority`, {
+    const db = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
