@@ -1,8 +1,11 @@
 // * IMPORTACIONES
 import express from 'express';
+import dotenv from 'dotenv/config';
+import conectarDB from './config/db.js';
 
 const app = express();
 
+conectarDB();
 
 const PORT = process.env.PORT || 4000;
 
