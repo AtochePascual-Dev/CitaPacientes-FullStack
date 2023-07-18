@@ -2,8 +2,7 @@
 import Veterinario from "../models/Veterinario.js";
 
 const registrarUsuario = async (req, res) => {
-
-  const { email, password } = req.body;
+  const { email } = req.body;
 
   const usuario = await Veterinario.findOne({ email });
 
@@ -21,9 +20,31 @@ const registrarUsuario = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
 
+
+const confirmarCuenta = async (req, res) => {
+  const { token } = req.params;
+
+  const usuario = await Veterinario.findOne({ token });
+
+  if (!usuario) {
+    const error = new Error('Token no valido');
+    return res.status(403).json({ msg: error.message });
+  };
+
+  try {
+    usuario.token = null;
+    usuario.confirmado = true;
+    await usuario.save();
+
+    res.json({ msg: "Usuario confirmado correctamente" });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export {
   registrarUsuario,
+  confirmarCuenta
 }
