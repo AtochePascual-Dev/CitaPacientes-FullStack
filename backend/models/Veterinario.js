@@ -39,7 +39,7 @@ const veterinarioSchema = mongoose.Schema({
   },
 });
 
-// Hashamos el password antes de guardar en la BD
+// Hashar el password antes de guardar en la BD
 veterinarioSchema.pre('save', async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -48,6 +48,11 @@ veterinarioSchema.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+// Comparar passwords
+veterinarioSchema.methods.comprobarPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 const Veterinario = mongoose.model('Veterinario', veterinarioSchema);
 
