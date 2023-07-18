@@ -16,5 +16,6 @@ router.post('/', registrarUsuario);
 router.get('/confirmar/:token', confirmarCuenta);
 router.post('/login', autenticarUsuario);
 
-
+// Rutas privadas
+router.get('/perfil', checkAuth, obtenerPerfil);
 export default router;

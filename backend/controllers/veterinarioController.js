@@ -72,8 +72,14 @@ const autenticarUsuario = async (req, res) => {
   res.json({ jwt: generarJWT(usuario.id) });
 };
 
+
+const obtenerPerfil = (req, res) => {
+  res.json('PERFIL');
+};
+
 export {
   registrarUsuario,
   confirmarCuenta,
-  autenticarUsuario
+  autenticarUsuario,
+  obtenerPerfil,
 }
