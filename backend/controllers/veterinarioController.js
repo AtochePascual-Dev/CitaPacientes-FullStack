@@ -116,11 +116,34 @@ const comprobarToken = async (req, res) => {
 };
 
 
+const resetearPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const usuario = await Veterinario.findOne({ token });
+
+  if (!usuario) {
+    const error = new Error('Hubo un error');
+    return res.status(400).json({ msg: error.message });
+  };
+
+  try {
+    usuario.token = null;
+    usuario.password = password;
+    await usuario.save();
+
+    res.json({ msg: 'Password modificado correctamente' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   registrarUsuario,
   confirmarCuenta,
   autenticarUsuario,
   obtenerPerfil,
   olvidePassword,
-  comprobarToken
+  comprobarToken,
+  resetearPassword
 }
