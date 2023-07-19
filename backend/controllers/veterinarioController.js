@@ -74,7 +74,9 @@ const autenticarUsuario = async (req, res) => {
 
 
 const obtenerPerfil = (req, res) => {
-  res.json('PERFIL');
+  const { veterinario: perfil } = req;
+
+  res.json(perfil);
 };
 
 export {
