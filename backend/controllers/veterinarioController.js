@@ -101,10 +101,26 @@ const olvidePassword = async (req, res) => {
   }
 };
 
+
+const comprobarToken = async (req, res) => {
+  const { token } = req.params;
+
+  const usuario = await Veterinario.findOne({ token });
+
+  if (!usuario) {
+    const error = new Error('Token no valido');
+    return res.status(400).json({ msg: error.message });
+  };
+
+  res.json({ msg: "Token valido" });
+};
+
+
 export {
   registrarUsuario,
   confirmarCuenta,
   autenticarUsuario,
   obtenerPerfil,
   olvidePassword,
+  comprobarToken
 }
