@@ -16,6 +16,20 @@ const registrarPaciente = async (req, res) => {
 };
 
 
+const obtenerPacientes = async (req, res) => {
+  const { veterinario } = req;
+
+  try {
+    const pacientes = await Paciente.find().where('veterinario').equals(veterinario);
+
+    res.json(pacientes);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 export {
   registrarPaciente,
+  obtenerPacientes
 }
