@@ -77,9 +77,35 @@ const actualizarPaciente = async (req, res) => {
   }
 };
 
+
+const eliminarPaciente = async (req, res) => {
+  const { id } = req.params;
+  const { veterinario } = req;
+
+  const paciente = await Paciente.findById(id);
+
+  if (!paciente) {
+    return res.status(404).json({ msg: 'No Encontrado' });
+  }
+
+  if (paciente.veterinario.toString() !== veterinario._id.toString()) {
+    return res.json({ msg: 'Accion no valida' });
+  };
+
+  try {
+    await paciente.deleteOne();
+
+    res.json({ msg: 'Paciente eliminado' });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 export {
   registrarPaciente,
   obtenerPacientes,
   obtenerPaciente,
-  actualizarPaciente
+  actualizarPaciente,
+  eliminarPaciente
 }

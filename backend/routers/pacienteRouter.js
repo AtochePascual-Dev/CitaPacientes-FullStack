@@ -5,7 +5,8 @@ import {
   registrarPaciente,
   obtenerPacientes,
   obtenerPaciente,
-  actualizarPaciente
+  actualizarPaciente,
+  eliminarPaciente
 } from '../controllers/pacienteController.js';
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router.route('/')
 router.route('/:id')
   .get(checkAuth, obtenerPaciente)
   .put(checkAuth, actualizarPaciente)
+  .delete(checkAuth, eliminarPaciente)
 
 export default router;
