@@ -3,7 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv/config';
 import conectarDB from './config/db.js';
 import veterinarioRouter from './routers/veterinarioRouter.js';
-import pacienteRouter from './routers/pacienteRouters.js';
+import pacienteRouter from './routers/pacienteRouter.js';
 
 const app = express();
 
