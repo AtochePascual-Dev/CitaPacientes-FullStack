@@ -35,6 +35,10 @@ const obtenerPaciente = async (req, res) => {
 
   const paciente = await Paciente.findById(id);
 
+  if (!paciente) {
+    return res.status(404).json({ msg: 'No Encontrado' });
+  }
+
   if (paciente.veterinario.toString() !== veterinario._id.toString()) {
     return res.json({ msg: 'Accion no valida' });
   };
@@ -43,8 +47,39 @@ const obtenerPaciente = async (req, res) => {
 };
 
 
+const actualizarPaciente = async (req, res) => {
+  const { id } = req.params;
+  const { veterinario } = req;
+
+  const paciente = await Paciente.findById(id);
+
+  if (!paciente) {
+    return res.status(404).json({ msg: 'No Encontrado' });
+  }
+
+  if (paciente.veterinario.toString() !== veterinario._id.toString()) {
+    return res.json({ msg: 'Accion no valida' });
+  };
+
+  // Actualizar datos
+  paciente.nombre = req.body.nombre || paciente.nombre;
+  paciente.propietario = req.body.propietario || paciente.propietario;
+  paciente.email = req.body.email || paciente.email;
+  paciente.fecha = req.body.fecha || paciente.fecha;
+  paciente.sintomas = req.body.sintomas || paciente.sintomas;
+
+  try {
+    const pacienteActulizado = await paciente.save();
+
+    res.json(pacienteActulizado);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   registrarPaciente,
   obtenerPacientes,
-  obtenerPaciente
+  obtenerPaciente,
+  actualizarPaciente
 }
